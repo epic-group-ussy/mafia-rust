@@ -13,6 +13,8 @@ import { Player } from "../game/gameState.d";
 import Anchor from "../menu/Anchor";
 import WikiCoverCard from "./WikiCoverCard";
 
+import KEYWORD_DATA_JSON from "../resources/keywords.json"
+
 export type TokenData = {
     style?: string, 
     link?: WikiArticleLink,
@@ -145,7 +147,6 @@ function computeKeywordData() {
         }]);
     }
 
-    const KEYWORD_DATA_JSON = require("../resources/keywords.json");
     //add role keywords
     for(const role of Object.keys(ROLES)){
         const data = KEYWORD_DATA_JSON[getFactionFromRole(role as Role)];

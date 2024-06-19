@@ -13,6 +13,8 @@ import { AuditorResult } from "../menu/game/gameScreenContent/RoleSpecificMenus/
 import { OjoAction } from "../menu/game/gameScreenContent/RoleSpecificMenus/SmallOjoMenu";
 import { PuppeteerAction } from "../menu/game/gameScreenContent/RoleSpecificMenus/SmallPuppeteerMenu";
 
+import chatMessageStyles from "../resources/styling/chatMessage.json";
+
 const ChatElement = React.memo((
     props: {
         message: ChatMessage,
@@ -23,12 +25,11 @@ const ChatElement = React.memo((
 ) => {
     const message = props.message;
     const playerNames = props.playerNames ?? GAME_MANAGER.getPlayerNames();
-    const chatMessageStyles = require("../resources/styling/chatMessage.json");
     if(message.variant === undefined){
         console.error("ChatElement message with undefined variant:");
         console.error(message);
     }
-    let style = typeof chatMessageStyles[message.variant.type] === "string" ? chatMessageStyles[message.variant.type] : "";
+    let style = Object.keys(chatMessageStyles).filter(a=>message.variant.type==a)[0] || "";
 
     let icon = null;
     if(message.chatGroup !== null){

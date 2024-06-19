@@ -1,14 +1,36 @@
-
 export let langMap: ReadonlyMap<string, string>;
 export let langText: string;
 export let langJson: any;
 
 export const LANGUAGES = ["en_us", "broken_keyboard", "dyslexic"] as const;
-export type Language = typeof LANGUAGES[number]
+export type Language = typeof LANGUAGES[number];
+
+import en_us from "../resources/lang/en_us.json";
+import broken_keyboard from "../resources/lang/broken_keyboard.json";
+import dyslexic from "../resources/lang/dyslexic.json";
+
 switchLanguage("en_us");
 
+// Because vite cannot automatically import
+function getLanguageJson(language: Language) {
+    let langJson: any = null;
+    switch(language) {
+        case "en_us":
+            langJson = en_us;
+            break;
+        case "broken_keyboard":
+            langJson = broken_keyboard;
+            break;
+        case "dyslexic":
+            langJson = dyslexic;
+            break;
+    }
+
+    return langJson;
+}
+
 export function switchLanguage(language: Language) {
-    langJson = require("../resources/lang/" + language + ".json");
+    langJson = getLanguageJson(language);;
     langMap = new Map<string, string>(Object.entries(langJson));
     langText = JSON.stringify(langJson, null, 1);
 }
@@ -38,6 +60,6 @@ export function translateChecked(langKey: string, ...valuesList: (string | numbe
 }
 
 export function languageName(language: Language): string {
-    const json = require("../resources/lang/" + language + ".json");
+    const json = getLanguageJson(language);
     return json.language;
 }
