@@ -225,6 +225,8 @@ pub enum ChatMessageVariant {
     DoomsayerWon,
     DoomsayerFailed,
     KiraResult{result: KiraResult},
+    LTargetRole{role: Role},
+    LGuessedYou,
     MartyrRevealed { martyr: PlayerIndex },
     MartyrWon,
     MartyrFailed,

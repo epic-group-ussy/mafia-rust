@@ -1,6 +1,6 @@
 use super::player::PlayerReference;
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct Visit {
     pub target: PlayerReference,
 

@@ -57,6 +57,8 @@
     "framerResult": "result",
     "scarecrowResult": "result",
     "kiraResult": "result",
+    "lTargetRole": "special",
+    "lGuessedYou": "result",
     "wildcardConvertFailed": "special",
     "ojoActionChosen": "special",
     "stewardRoleChosen": "special",

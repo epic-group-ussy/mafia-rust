@@ -194,6 +194,8 @@ Doomsayer
     type: "kira"
     guesses: Record<PlayerIndex, KiraGuess>
 } | {
+    type: "l"
+} | {
     type: "fiendsWildcard"
     role: Role
 } | {

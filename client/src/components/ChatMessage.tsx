@@ -456,6 +456,10 @@ export function translateChatMessage(message: ChatMessageVariant, playerNames?: 
             return translate("chatMessage.martyrRevealed",
                 playerNames[message.martyr],
             );
+        case "lTargetRole":
+            return translate("chatMessage.lTargetRole", translate(`role.${message.role}.name`));
+        case "lGuessedYou":
+            return translate("chatMessage.lGuessedYou");
         case "journalistJournal":
             return translate("chatMessage.journalistJournal",
                 sanitizePlayerMessage(replaceMentions(message.journal, playerNames))
@@ -1000,6 +1004,11 @@ export type ChatMessageVariant = {
     result: {
         guesses: Record<PlayerIndex, [KiraGuess, KiraGuessResult]>
     }
+} | {
+    type: "lTargetRole",
+    role: Role
+} | {
+    type: "lGuessedYou",
 } | {
     type: "martyrFailed"
 } | {

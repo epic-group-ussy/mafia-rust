@@ -131,6 +131,7 @@ macros::roles! {
     Scarecrow : scarecrow,
     Doomsayer : doomsayer,
     Death : death,
+    L : l,
 
     Arsonist : arsonist,
     Werewolf : werewolf,

@@ -69,7 +69,7 @@ export function getRolesFromRoleSet(roleSet: RoleSet): Role[] {
                 "witch", "necromancer", "cupid"
             ];
         case "neutralEvil":
-            return ["jester", "revolutionary", "politician", "doomsayer", "minion", "scarecrow"];
+            return ["jester", "revolutionary", "politician", "doomsayer", "minion", "scarecrow", "l"];
     }
 }
 

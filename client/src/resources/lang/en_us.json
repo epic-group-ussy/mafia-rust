@@ -560,6 +560,12 @@
     "role.martyr.roleDataText.eccentric": "The heavens smile at you.",
     "role.martyr.youAreSelecting": "You are making your sacrifice.",
     "role.martyr.youAreSelecting.null": "You choose inaction in the face of eternal glory.",
+    
+    "role.l.name": "L",
+    "role.l.name:var.0": "Ls",
+    "role.l.target": "Guess",
+    "role.l.youAreSelecting": "You are guessing \\0.",
+    "role.l.youAreSelecting.null": "You aren't guessing anyone.",
 
     "obscured": "Obscured",
     "grave.deathCause.execution": "Execution",
@@ -889,6 +895,8 @@
     "chatMessage.stewardRoleChosen.role": "You choose to protect all players with the role \\0.",
     "chatMessage.stewardRoleChosen.none": "You choose to protect nobody.",
     "chatMessage.kiraResult": "Kira result",
+    "chatMessage.lTargetRole": "Your target's role is \\0.",
+    "chatMessage.lGuessedYou": "L found you. You are now being told the roles of half of the remaining town.",
     "chatMessage.puppeteerActionChosen.string": "You choose to string up a marionette.",
     "chatMessage.puppeteerActionChosen.poison": "You choose to poison.",
     "chatMessage.recruiterActionChosen.recruit": "You choose to recruit a new member.",
@@ -1535,6 +1543,11 @@
     "wiki.article.role.martyr.abilities":"* Visit yourself to attack yourself and spend one bullet\n* You start with 2 bullets\n* When you die, everyone else commits suicide and you win.",
     "wiki.article.role.martyr.attributes":"* When you have zero bullets left, you leave town and lose\n* You have a basic attack",
     "wiki.article.role.martyr.extra":"* When you visit a player while you have zero bullets left you will not attack them\n* You're an ex-cultist, they rejected you because you told the truth",
+
+    "wiki.article.role.l.guide": "You have a target whose role you know, and each night you have to guess who your target is. When you win, you reveal half of the towns' roles to your target - so be careful who you claim to.",
+    "wiki.article.role.l.abilities":"* Visit a player to guess them as your target.\n* When you die, you reveal the roles of half of the town members to your target.",
+    "wiki.article.role.l.attributes":"* When you die, your alibi is not shared.",
+    "wiki.article.role.l.extra":"* If there is a Kira, your target will always be a Kira. Otherwise, if there is a Mafia Killing, your target will always be Mafia Killing. Otherwise, it will be random.",
 
     "wiki.article.role.apostle.guide": "- At night, either kill or convert\n    - If the cult can convert tonight, select a player to convert\n    - If the cult can kill tonight and there is no zealot, select a player to kill",
     "wiki.article.role.apostle.abilities":"* On nights the cult kills\n    * If you are the only cultist, visit a player to attack\n* On nights the cult convert\n    * Visit a player to convert them to a Zealot on the cultist team",

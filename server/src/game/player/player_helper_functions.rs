@@ -168,8 +168,6 @@ impl PlayerReference{
         }
     }
 
-    /// ### Pre condition:
-    /// self.alive(game) == false
     pub fn die(&self, game: &mut Game, grave: Grave){
         self.die_return_event(game, grave).invoke(game);
     }
@@ -292,6 +290,7 @@ impl PlayerReference{
                     RoleState::Politician(r) => r.won(),
                     RoleState::Martyr(r) => r.won(),
                     RoleState::Death(r) => r.won(),
+                    RoleState::L(r) => r.won(),
                     _ => false
                 }
             },

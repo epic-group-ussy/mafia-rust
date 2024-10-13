@@ -894,6 +894,19 @@
             {"type": "youSurvivedAttack"}
         ]
     },
+    "l":{
+        "faction": "neutral",
+        "roleSet": null,
+        "armor": false,
+        "aura": null,
+        "maxCount": null,
+        "roleSpecificMenu": true,
+        "canBeConvertedTo": [],
+        "chatMessages":[
+            {"type": "lTargetRole", "role": "kira"},
+            {"type": "lGuessedYou"}
+        ]
+    },
     "wildcard": {
         "faction": "neutral",
         "roleSet": null,
