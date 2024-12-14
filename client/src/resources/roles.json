@@ -820,6 +820,18 @@
             {"type": "youSurvivedAttack"}
         ]
     },
+    "geist": {
+        "mainRoleSet": "neutral",
+        "roleSets": ["neutral"],
+        "armor": true,
+        "aura": null,
+        "maxCount": null,
+        "canWriteDeathNote": true,
+        "canBeConvertedTo": [],
+        "chatMessages":[
+            {"type": "geistWon"}
+        ]
+    },
     "politician":{
         "mainRoleSet": "neutral",
         "roleSets": ["neutral"],

@@ -231,6 +231,7 @@ pub enum ChatMessageVariant {
 
     JesterWon,
     RevolutionaryWon,
+    GeistWon,
     ChronokaiserSpeedUp{percent: u32},
     DoomsayerWon,
     DoomsayerFailed,

@@ -499,6 +499,12 @@
 
     "role.revolutionary.name": "Revolutionary",
     "role.revolutionary.name:var.0": "Revolutionaries",
+
+    "role.geist.name": "Geist",
+    "role.geist.name:var.0": "Geists",
+    "role.geist.youAreSelecting": "You are haunting \\0.",
+    "role.geist.youAreSelecting.null": "You aren't haunting anybody",
+    "controllerId.geist.0.name": "Haunt",
     
     "role.doomsayer.name": "Doomsayer",
     "role.doomsayer.name:var.0": "Doomsayers",
@@ -895,6 +901,7 @@
     "chatMessage.mediumExists":"There is a medium in this game, don't leave! Your information is important!",
     "chatMessage.jesterWon":"The Jester will get their revenge from the grave!",
     "chatMessage.revolutionaryWon":"The Revolutionary got their target executed and won!",
+    "chatMessage.geistWon":"The Geist has been set free by being attacked, winning the game!",
     "chatMessage.chronokaiserSpeedUp":"The Chronokaiser speeds up time. Each phase is \\0% faster.",
     "chatMessage.deputyKilled":"The Deputy killed \\0!",
     "chatMessage.deputyShotYou":"A Deputy shot you!",
@@ -1635,6 +1642,13 @@
     "wiki.article.role.revolutionary.abilities":"* At the beginning of the game, you are assigned an execution target. It is a random townie, but never a Mayor, Reporter, Jailor, Deputy, Veteran, or Transporter\n* Your execution targets role is revealed to you when you are assigned that target",
     "wiki.article.role.revolutionary.attributes":"* When your execution target is executed, you win\n* After you win, you leave town at the start of final words\n* You are armored",
     "wiki.article.role.revolutionary.extra":"* If your target dies by something other than execution, you convert to a jester immediately, even while dead\n* If there are no valid targets in the game when you become the Revolutionary, you convert to a Jester",
+
+    "wiki.article.role.geist.reminder": "Each night, transport a player with yourself. Protect both players. If you recieve an attacking visit, you win and kill attacking town loyalists.",
+    "wiki.article.role.geist.guide": "- At night, select a player to transport with yourself and protect both players\n - If somebody else tries to visit the first player, they instead visit the second player and vice versa.\n    - If you receive an attacking visit: the visitor dies, you win the game, and you leave town",
+    "wiki.article.role.geist.abilities":" - Visit a player to transport them with you\n - You protect your target and yourself \n - You can't select yourself",
+    "wiki.article.role.geist.attributes":" -  All visits to first player instead visit the second player and vice versa\n - The first players you transport are told they are transported\n - You are immune to getting roleblocked, transported, or possessed\n - You have armor",
+    "wiki.article.role.geist.extra": "",
+
 
     "wiki.article.role.doomsayer.reminder": "Guess the role of three different players correctly to win. When you win you attack the players you guessed.",
     "wiki.article.role.doomsayer.guide": "- Guess the role of three different players correctly to win\n- If you get all your guesses correct and win, you attack all three players, and then leave town\n- You can't guess town investigative roles\n- If a player has a non town role, you don't need to guess their exact role, just that they are non town\n\n In order to counter a doomsayer, players often claimswap",

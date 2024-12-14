@@ -360,6 +360,7 @@ impl PlayerReference{
                     RoleState::Jester(r) => r.won(),
                     RoleState::Doomsayer(r) => r.won(),
                     RoleState::Revolutionary(r) => r.won(),
+                    RoleState::Geist(r) => r.won(),
                     RoleState::Chronokaiser(_) => Chronokaiser::won(game, *self),
                     RoleState::Martyr(r) => r.won(),
                     _ => false

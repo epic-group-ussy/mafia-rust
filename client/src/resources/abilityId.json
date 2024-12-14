@@ -110,6 +110,9 @@
     "role/politician/0": {
         "midnight": false
     },
+    "role/geist/0": {
+        "midnight": true
+    },
     "role/scarecrow/0": {
         "midnight": true
     },
