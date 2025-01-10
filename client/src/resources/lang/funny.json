@@ -1,0 +1,208 @@
+{
+    "fallbackLanguage": "en_us",
+
+    "language": "PeppermEnglish",
+    "language:var.0": "Funny",
+    "language:var.1": "Joke",
+    "language:var.2": "Pepperman",
+
+    "menu.start.title": "N Night Ultimate Machinations",
+
+    "menu.lobby.button.advanced.false": "GOAT view",
+    
+    "menu.lobby.players": "Rabble",
+
+    "menu.chat.title": "Yap",
+    "menu.chat.icon": "💬",
+
+    "menu.playerList.title": "Rabble",
+    "menu.playerList.icon": "🕵🏾",
+    
+    "forfeitVote": "Game Throw",
+
+    "menu.graveyard.title": "Ship's Log",
+    "menu.graveyard.icon": "🔱",
+    "menu.graveyard.killedBy": "Driven out by",
+
+    "menu.gameScreen.noContent": "You're so good at the game",
+
+    "notification.serverNotFound": "Game busted",
+    "notification.rateLimitExceeded": "Stop spamming",
+
+    "notification.rejectJoin.serverBusy": "Real talk... you got kicked",
+
+    "players": "Rabble",
+
+    "role.jailor.name": "Political Extremist",
+    "role.jailor.name:var.0": "Political Extremists",
+    "role.jailor.name:var.1": "Extremist",
+    "role.jailor.target": "Assassinate",
+    "role.jailor.roleDataText.executionsRemaining": "\\0 assassinations remaining",
+    "role.jailor.roleDataText.nobody": "You haven't chosen to abduct anybody.",
+    "role.jailor.roleDataText": "You chose to abduct \\0.",
+    "role.jailor.dayTarget": "Abduct",
+    "role.jailor.youAreSelecting": "You chose to assassinate \\0.",
+    "role.jailor.youAreSelecting.null": "You haven't chosen to assassinate anyone",
+
+    "role.detective.name":"Sheriff",
+    "role.detective.name:var.0":"Sheriffs",
+    
+    "role.philosopher.name": "Counselor",
+    "role.philosopher.name:var.0": "Counselors",
+    "role.philosopher.target": "Counsel",
+    "role.philosopher.youAreSelecting": "You are counseling \\0 and \\1's relationship.",
+    "role.philosopher.youAreSelecting.null": "You aren't counseling anybody",
+
+    "role.tracker.name": "Trapker",
+    "role.tracker.name:var.0": "Trapkers",
+    "role.tracker.target": "Trapk",
+    "role.tracker.youAreSelecting": "You are trapking \\0.",
+    "role.tracker.youAreSelecting.null": "You aren't trapking anybody",
+
+    "role.snoop.name": "ADHD Detective",
+    "role.snoop.name:var.0": "ADHD Detectives",
+    "role.snoop.target": "Investigate",
+    "role.snoop.youAreSelecting": "You are investigating \\0.",
+    "role.snoop.youAreSelecting.null": "You aren't investigating anybody",
+
+    "role.doctor.name": "The Doctor",
+    "role.doctor.name:var.0": "Doctor",
+    "role.doctor.name:var.1": "Doctors",
+
+    "role.engineer.name": "Tracper",
+    "role.engineer.name:var.0": "Tracpers",
+    "role.engineer.target": "Visit",
+    "role.engineer.roleDataText.dismantled": "The tracp is dismantled, wait for it to be ready.",
+    "role.engineer.roleDataText.ready": "The tracp is ready, visit someone to set it on them.",
+    "role.engineer.roleDataText.set": "The tracp is currently set, visit anyone to dismantle it, and have it be ready next night.",
+    "role.engineer.roleDataText.unset": "Remove tracp",
+    "role.engineer.youAreSelecting": "You are placing a tracp on \\0.",
+    "role.engineer.youAreSelecting.null": "You aren't placing a tracp on anyone.",
+
+    "role.escort.name": "Gigolo",
+    "role.escort.name:var.0": "Gigolos",
+    "role.escort.target": "Roleblock",
+    "role.escort.youAreSelecting": "You are jiggling for \\0.",
+    "role.escort.youAreSelecting.null": "You aren't jiggling for anyone.",
+
+    "role.medium.name": "Steward",
+    "role.medium.name:var.0": "Stewards",
+    "role.medium.roleDataText.hauntsRemaining": "You can reunite those who left \\0 more times",
+    "role.medium.roleDataText.nobody": "You didn't decide to reunite anybody with those who left.",
+    "role.medium.roleDataText": "You decided to reunite all those who have left with \\0.",
+    "role.medium.dayTarget": "Reunite",
+
+    "role.journalist.name": "CNN Writer",
+    "role.journalist.name:var.0": "CNN Writers",
+    "role.journalist.name:var.1": "CNN Reporter",
+    "role.journalist.name:var.2": "CNN Reporters",
+    "role.journalist.name:var.3": "CNN Journalist",
+    "role.journalist.name:var.4": "CNN Journalists",
+    "role.journalist.dayTarget": "Interview",
+    "role.journalist.menu.public": "Public",
+    "role.journalist.menu.journal": "CNN",
+
+    "grave.deathCause.execution": "Ostracization",
+    "grave.deathCause.leftTown": "Homesickness",
+    "grave.deathCause.leftTown:var.0": "Homesick",
+    "grave.deathCause.brokenHeart": "A quest to find their lover",
+    "grave.killer.quit": "Rage",
+    "grave.killer.suicide": "Remorse",
+    "grave.deathNote": "A note was found at their house",
+
+    "alibi": "Memoir",
+
+    "mafia": "Bourgeoisie",
+
+    "mafiaSupport":"Bourgeoisie Support",
+    "mafiaSupport:var.0":"BS",
+    "mafiaKilling":"Bourgeoisie Killing",
+    "mafiaKilling:var.0":"BK",
+    "mafiaKilling:var.1":"Burger King",
+
+    "tag.forfeitVote.name":"Throwing",
+
+    "onTrial": "At the Dock",
+
+    "suicide": "Remorse",
+    "dead": "Gone",
+    "attack": "Drive out",
+    "kill": "Drive out",
+    "poison": "Buy them a ferry",
+
+    "verdict.guilty": "Leave",
+    "verdict.innocent": "Stay",
+
+    "judgement.cannotVote.onTrial": "You're at the dock!",
+    "judgement.cannotVote.dead": "You can't vote because you're not there.",
+    "judgement.playerOnTrial": "\\0 is at the dock.",
+    "finalWords.playerOnTrial": "\\0 has been voted to leave.",
+    
+    "phase.nomination.subtitle": "Try to make the evils leave.",
+    
+    "phase.testimony:var.0": "At the dock",
+    "phase.testimony.subtitle": "\\0 is at the dock.\nLet them defend themselves.",
+    
+    "phase.judgement.subtitle": "\\0 is at the dock.\nVote whether they should stay or leave.",
+    
+    "phase.finalWords": "Eviction",
+    "phase.finalWords.subtitle": "The town has decided to evict \\0.",
+
+    "chatMessage.broadcastWhisper":"\\0 and \\1 are mafia",
+    
+    "chatMessage.playerDied":"\\0 (\\1) sailed away.",
+    "chatMessage.deathNote": "A note left at their house reads:",
+    "chatMessage.phaseChange.trial":"\\0 \\1\n\\2 is at the dock",
+    "chatMessage.playerQuit": "\\0 is mad because they were bad and will certainly die at the end of the next night.",
+
+    "chatMessage.trialVerdict":"\\0 was voted \\1 with \\2 stay votes and \\3 leave votes.",
+
+    "chatMessage.journalistJournal":"CNN Breaking news: \\0",
+    "chatMessage.playerIsBeingInterviewed":"\\0 is being interviewed by a CNN Writer",
+    "chatMessage.jailedTarget": "You abducted \\0 for questioning.",
+    "chatMessage.jailedSomeone":"\\0 was abducted!",
+    "chatMessage.jailorDecideExecute":"The Extremist decided to assassinate \\0!",
+    "chatMessage.jailorDecideNotExecute":"The Extremist decided not to assassinate.",
+    "chatMessage.mediumHauntStarted":"\\0 has brought those who left to reunite with \\1!",
+    "chatMessage.jesterWon":"The Jester will bomb somebody's house!",
+    "chatMessage.rabbleRouserWon":"The Rabble Rouser got their target ostracized and won!",
+    "chatMessage.deputyKilled":"The Deputy inspired \\0 to leave (by shooting him)!",
+    "chatMessage.jailorDecidedToExecute":"The Extremist decided to assassinate \\0",
+    "chatMessage.jailorDecideExecute.nobody":"The Extremist decided not to assassinate!",
+
+    "chatMessage.youDied":"You sailed away!",
+    "chatMessage.youSurvivedAttack": "Someone tried to drive you away, but you had defense and stayed.",
+    "chatMessage.someoneSurvivedYourAttack": "You tried to drive someone away, but they had defense and stayed.",
+    "chatMessage.youAttackedSomeone": "You drove someone away someone.",
+    "chatMessage.youWereAttacked": "You were driven away by someone",
+    
+    "chatMessage.targetWasAttacked":"Your target was driven away.",
+
+    "chatMessage.wardblocked":"Some of your targets were partying, and you were blocked from coming in.",
+
+    "chatMessage.spyBug.protected":"Your target was protected.",
+    "chatMessage.spyBug.wardblocked":"Someone didn't invite your target to their party they were hosting at someone's house.",
+    "chatMessage.snoopResult.inconclusive":"You got distracted.",
+    "chatMessage.engineerVisitorsRole": "A \\0 visited the tracped player.",
+    "chatMessage.trapState.dismantled": "Your tracp is currently dismantled. You can't set it yet.",
+    "chatMessage.trapState.ready": "Your tracp is currently ready. It can be set and potentially triggered tonight.",
+    "chatMessage.trapState.set": "Your tracp is currently set. You can dismantle it or wait for it to trigger.",
+    "chatMessage.trapStateEndOfNight.dismantled": "Your tracp is dismantled.",
+    "chatMessage.trapStateEndOfNight.ready": "Your tracp is ready.",
+    "chatMessage.trapStateEndOfNight.set": "Your tracp is set.",
+    
+    
+    "chatMessage.vigilanteSuicide":"You sailed away over the guilt of driving away a townie.",
+    "chatMessage.godfatherBackup": "The Bourgeoisie has selected \\0 to be their backup.",
+    "chatMessage.godfatherBackup.nobody": "The Bourgeoisie has deselected a backup.",
+    "chatMessage.godfatherBackupKilled": "The Bourgeoisie was blocked, so \\0 visited instead.",
+    "chatMessage.ojoActionChosen.kill": "You choose to drive out \\0.",
+    "chatMessage.puppeteerActionChosen.poison": "You choose to drive out (tomorrow).",
+    "chatMessage.erosActionChosen.kill": "You choose to drive out.",
+    "chatMessage.cultKillsNext": "The cult will attempt to sacrifice and drive out someone tonight.",
+    "chatMessage.playerDiedOfBrokenHeart": "\\0 sailed away of a broken heart, joining their lover \\1 in Gibraltar.",
+
+    "wiki.article.standard.chat.title": "Yap",
+    "wiki.article.standard.playerList.title": "Rabble",
+    "wiki.article.standard.aura.text": "Roles that are sigma may have aura. This includes Political Extremist, Sheriff, ADHD Detective, and many others.\nEvil may not want to kill someone with aura if they are distracting the town with their rizz.\n### Extra\n* Aura can be also caused by mewing\n* Aura can be strengthened by mogging the entire lobby\n* In order to remove aura, you can install DBD."
+}
