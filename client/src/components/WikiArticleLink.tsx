@@ -1,7 +1,7 @@
 import { MODIFIERS, ModifierType } from "../game/gameState.d";
 import translate, { langJson } from "../game/lang";
-import { Role } from "../game/roleState.d";
-import { WIKI_CATEGORIES, WikiCategory } from "./Wiki";
+import { Role, roleJsonData } from "../game/roleState.d";
+import { partitionWikiPages, WIKI_CATEGORIES, WikiCategory } from "./Wiki";
 import "./wiki.css";
 import { getAllRoles } from "../game/roleListState.d"
 
@@ -61,9 +61,22 @@ export function wikiPageIsEnabled(
     switch (page.split("/")[0]) {
         case "role":
             return enabledRoles.map(role => `role/${role}`).includes(page)
-        case "modifiers":
+        case "modifier":
             return enabledModifiers.map(modifier => `modifier/${modifier}`).includes(page)
-        default:
-            return true;
     }
+
+    if (page === "standard/mafia") {
+        return enabledRoles.some(role => roleJsonData()[role].roleSets.includes("mafia"))
+    } else if (page === "standard/cult") {
+        return enabledRoles.some(role => roleJsonData()[role].roleSets.includes("cult"))
+    }
+
+    if (page.startsWith("category/")) {
+        return partitionWikiPages(ARTICLES, enabledRoles, enabledModifiers, false)[page.split("/")[1] as any as WikiCategory]
+            .filter(p => p !== page)
+            .filter(page => wikiPageIsEnabled(page, enabledRoles, enabledModifiers))
+            .length !== 0
+    }
+
+    return true;
 }

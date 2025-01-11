@@ -22,3 +22,6 @@
 .graveyard-menu .graveyard-menu-enabledRoles > div > *{
     width: min-content;
 }
+.graveyard-menu label {
+    display: block
+}

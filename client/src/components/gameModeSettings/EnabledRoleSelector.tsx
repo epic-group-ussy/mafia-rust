@@ -2,13 +2,14 @@ import { ReactElement, useCallback, useContext, useState } from "react"
 import translate from "../../game/lang"
 import React from "react"
 import StyledText from "../StyledText"
-import { RoleOutlineOption, getAllRoles, getRolesFromOutlineOption } from "../../game/roleListState.d";
-import { Role } from "../../game/roleState.d";
+import { ROLE_SETS, RoleOutlineOption, getAllRoles, getRolesFromOutlineOption } from "../../game/roleListState.d";
+import { Role, roleJsonData } from "../../game/roleState.d";
 import { RoleOutlineOptionSelector } from "./OutlineSelector";
 import "./disabledRoleSelector.css"
 import Icon from "../Icon";
 import { Button } from "../Button";
 import { GameModeContext } from "./GameModesEditor";
+import CheckBox from "../CheckBox";
 
 
 
@@ -102,19 +103,32 @@ export function EnabledRolesDisplay(props: EnabledRolesDisplayProps): ReactEleme
         </StyledText>
     }
 
+    const [hideDisabled, setHideDisabled] = useState(true);
+
     return <div>
-        {getAllRoles().map((role, i) => 
-            props.modifiable 
-                ? <Button key={i}
-                    disabled={props.disabled}
-                    onClick={() => (!isEnabled(role) ? props.onEnableRoles : props.onDisableRoles)([role])}
-                >
-                    {roleTextElement(role)}
-                </Button> 
-                : <div key={i} className={"placard" + (!isEnabled(role) ? " disabled" : "")}>
-                    {roleTextElement(role)}
-                </div>
-            
-        )}
+        {!props.modifiable && <label>
+            {translate("hideDisabled")}
+            <CheckBox
+                checked={hideDisabled}
+                onChange={checked => setHideDisabled(checked)}
+            />
+        </label>}
+        <div>
+            {getAllRoles()
+                .filter(role => isEnabled(role) || !hideDisabled || props.modifiable)
+                .sort((a, b) => (isEnabled(a) ? -1 : 1) - (isEnabled(b) ? -1 : 1))
+                .sort((a, b) => ROLE_SETS.indexOf(roleJsonData()[a].mainRoleSet) - ROLE_SETS.indexOf(roleJsonData()[b].mainRoleSet))
+                .map((role, i) => 
+                    props.modifiable 
+                        ? <Button key={i}
+                            disabled={props.disabled}
+                            onClick={() => (!isEnabled(role) ? props.onEnableRoles : props.onDisableRoles)([role])}
+                        >
+                            {roleTextElement(role)}
+                        </Button> 
+                        : <div key={i} className={"placard" + (!isEnabled(role) ? " disabled" : "")}>
+                            {roleTextElement(role)}
+                        </div>)}
+        </div>
     </div>
 }

@@ -1,9 +1,10 @@
-import React, { ReactElement, useCallback, useContext } from "react";
+import React, { ReactElement, useCallback, useContext, useState } from "react";
 import { MODIFIERS, ModifierType } from "../../game/gameState.d";
 import translate from "../../game/lang";
 import StyledText from "../StyledText";
 import { GameModeContext } from "./GameModesEditor";
 import { Button } from "../Button";
+import CheckBox from "../CheckBox";
 
 export function EnabledModifiersSelector(props: Readonly<{
     disabled?: boolean,
@@ -61,19 +62,32 @@ export function EnabledModifiersDisplay(props: EnabledModifiersDisplayProps): Re
         </StyledText>
     }
 
+    const [hideDisabled, setHideDisabled] = useState(true);
+
     return <div>
-        {MODIFIERS.map((modifier, i) => 
-            props.modifiable 
-                ? <Button key={modifier}
-                    disabled={props.disabled}
-                    onClick={() => (!isEnabled(modifier) ? props.onEnableModifiers : props.onDisableModifiers)([modifier])}
-                >
-                    {modifierTextElement(modifier)}
-                </Button> 
-                : <div key={modifier} className={"placard" + (!isEnabled(modifier) ? " disabled" : "")}>
-                    {modifierTextElement(modifier)}
-                </div>
-            
-        )}
+        {!props.modifiable && <label>
+            {translate("hideDisabled")}
+            <CheckBox
+                checked={hideDisabled}
+                onChange={checked => setHideDisabled(checked)}
+            />
+        </label>}
+        <div>
+            {MODIFIERS
+                .filter(role => isEnabled(role) || !hideDisabled || props.modifiable)
+                .sort((a, b) => (isEnabled(a) ? -1 : 1) - (isEnabled(b) ? -1 : 1))
+                .map((modifier, i) => 
+                props.modifiable 
+                    ? <Button key={modifier}
+                        disabled={props.disabled}
+                        onClick={() => (!isEnabled(modifier) ? props.onEnableModifiers : props.onDisableModifiers)([modifier])}
+                    >
+                        {modifierTextElement(modifier)}
+                    </Button> 
+                    : <div key={modifier} className={"placard" + (!isEnabled(modifier) ? " disabled" : "")}>
+                        {modifierTextElement(modifier)}
+                    </div>
+            )}
+        </div>
     </div>
 }

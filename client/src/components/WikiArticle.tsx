@@ -156,7 +156,11 @@ export function PageCollection(props: Readonly<{
     enabledRoles: Role[],
     enabledModifiers: ModifierType[],
     children?: ReactNode
-}>): ReactElement {
+}>): ReactElement | null {
+    if (props.pages.length === 0) {
+        return null;
+    }
+    
     return <>
         <h3 className="wiki-search-divider">
             <StyledText>{props.title}</StyledText>

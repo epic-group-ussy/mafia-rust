@@ -14,6 +14,7 @@ import { getAllRoles } from "../game/roleListState.d";
 import { useLobbyOrGameState } from "./useHooks";
 import { MODIFIERS, ModifierType } from "../game/gameState.d";
 import Masonry from "react-responsive-masonry";
+import CheckBox from "./CheckBox";
 
 
 export function setWikiSearchPage(page: WikiArticleLink, anchorController: AnchorController, menuController?: MenuController) {
@@ -36,6 +37,7 @@ export default function Wiki(props: Readonly<{
     enabledModifiers: ModifierType[],
     initialWikiPage?: WikiArticleLink,
     onPageChange?: (page: WikiArticleLink | null) => void,
+    static?: boolean
 }>): ReactElement {
 
     const [searchQuery, setSearchQuery] = useState("");
@@ -95,6 +97,7 @@ export default function Wiki(props: Readonly<{
                 enabledRoles={props.enabledRoles}
                 enabledModifiers={props.enabledModifiers}
                 onChooseArticle={chooseArticle}
+                static={props.static === true}
             />
             :
             <WikiArticle article={article}/>
@@ -128,7 +131,8 @@ function WikiSearchResults(props: Readonly<{
     searchQuery: string,
     enabledRoles: Role[],
     enabledModifiers: ModifierType[],
-    onChooseArticle: (article: WikiArticleLink) => void
+    onChooseArticle: (article: WikiArticleLink) => void,
+    static: boolean
 }>): ReactElement {
     const enabledRoles = useLobbyOrGameState(
         gameState => gameState.enabledRoles,
@@ -137,9 +141,11 @@ function WikiSearchResults(props: Readonly<{
     )!;
     const enabledModifiers = useLobbyOrGameState(
         gameState => gameState.enabledModifiers,
-        ["enabledRoles"],
+        ["enabledModifiers"],
         MODIFIERS as any as ModifierType[]
     )!;
+
+    const [hideDisabled, setHideDisabled] = useState(true);
 
     const getSearchResults = useCallback((search: string) => {
         const out = [
@@ -154,33 +160,37 @@ function WikiSearchResults(props: Readonly<{
     [props.searchQuery, getSearchResults])
 
     return <div className="wiki-results" tabIndex={-1}>
+        {!props.static && <label>
+            {translate("hideDisabled")}
+            <CheckBox 
+                checked={hideDisabled} 
+                onChange={checked => setHideDisabled(checked)}
+            />
+        </label>}
         {props.searchQuery === ""
-            ? <WikiMainPage enabledRoles={enabledRoles} enabledModifiers={enabledModifiers} articles={results} onChooseArticle={props.onChooseArticle}/>
-            : results.map(page => {
-                let className = undefined;
-                if((
-                    page.includes("role/") &&
-                    !enabledRoles.map(role => `role/${role}`).includes(page)
-                ) || (
-                    page.includes("modifier/") &&
-                    !enabledModifiers.map(modifier => `modifier/${modifier}`).includes(page)
-                )) {
-                    className = "keyword-disabled";
-                }
-    
-                return <WikiSearchResult key={page} 
-                    page={page} 
-                    className={className} 
-                    onChooseArticle={() => props.onChooseArticle(page)}
-                    />
-            })}
+            ? <WikiMainPage 
+                enabledRoles={enabledRoles} 
+                enabledModifiers={enabledModifiers} 
+                hideDisabled={hideDisabled}
+                articles={results} 
+                onChooseArticle={props.onChooseArticle}
+            /> : <div>
+                {results
+                    .filter(page => wikiPageIsEnabled(page, enabledRoles, enabledModifiers) || !hideDisabled)
+                    .map(page => <WikiSearchResult key={page} 
+                        page={page} 
+                        className={wikiPageIsEnabled(page, enabledRoles, enabledModifiers) ? "" : "keyword-disabled"} 
+                        onChooseArticle={() => props.onChooseArticle(page)}
+                    />)}
+            </div>}
     </div>
 }
 
 function WikiMainPage(props: Readonly<{
     articles: WikiArticleLink[],
     enabledRoles: Role[],
-    enabledModifiers: ModifierType[]
+    enabledModifiers: ModifierType[],
+    hideDisabled: boolean,
     onChooseArticle: (article: WikiArticleLink) => void
 }>): ReactElement {
     const articlePartitions = useMemo(() => 
@@ -210,20 +220,24 @@ function WikiMainPage(props: Readonly<{
 
     return <div ref={ref} className="wiki-main-page">
         <Masonry columnsCount={columnCount}>
-            {Object.entries(articlePartitions).filter(([category]) => category !== "uncategorized").map(([category, pages]) => {
-                return <div className="masonry-item" key={category}>
-                    <PageCollection 
-                        title={translate(`wiki.category.${category}`)}
-                        pages={pages}
-                        enabledRoles={props.enabledRoles}
-                        enabledModifiers={props.enabledModifiers}
-                    />
-                </div>
-            })}
+            {Object.entries(articlePartitions)
+                .filter(([category]) => category !== "uncategorized")
+                .map(([category, pages]) => {
+                    return <div className="masonry-item" key={category}>
+                        <PageCollection 
+                            title={translate(`wiki.category.${category}`)}
+                            pages={pages
+                                .filter(page => wikiPageIsEnabled(page, props.enabledRoles, props.enabledModifiers) || !props.hideDisabled)}
+                            enabledRoles={props.enabledRoles}
+                            enabledModifiers={props.enabledModifiers}
+                        />
+                    </div>
+                })}
         </Masonry>
         <PageCollection 
             title={translate(`wiki.category.uncategorized`)}
-            pages={articlePartitions["uncategorized"]}
+            pages={articlePartitions["uncategorized"]
+                .filter(page => wikiPageIsEnabled(page, props.enabledRoles, props.enabledModifiers) || !props.hideDisabled)}
             enabledRoles={props.enabledRoles}
             enabledModifiers={props.enabledModifiers}
         />
@@ -240,7 +254,8 @@ type WikiPagePartitions = Record<WikiCategory | "uncategorized", WikiArticleLink
 export function partitionWikiPages(
     wikiPages: WikiArticleLink[],
     enabledRoles: Role[],
-    enabledModifiers: ModifierType[]
+    enabledModifiers: ModifierType[],
+    sort?: boolean
 ): WikiPagePartitions {
     const partitions: WikiPagePartitions = Object.fromEntries([
         ...WIKI_CATEGORIES.map(a => [a, []]),
@@ -293,10 +308,12 @@ export function partitionWikiPages(
         partitions[category].push(wikiPage)
     }
 
-    const sortFunction = getWikiPageSortFunction(enabledRoles, enabledModifiers);
-
-    for (const category of Object.keys(partitions) as WikiCategory[]) {
-        partitions[category].sort(sortFunction);
+    if (sort !== false) {
+        const sortFunction = getWikiPageSortFunction(enabledRoles, enabledModifiers);
+    
+        for (const category of Object.keys(partitions) as WikiCategory[]) {
+            partitions[category].sort(sortFunction);
+        }
     }
 
     return partitions;
