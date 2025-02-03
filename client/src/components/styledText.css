@@ -99,6 +99,9 @@
     --spiral-color: #47a850;
     --spiral-background-color: #a4e6a4;
 }
+.keyword-title {
+    font-family: var(--title-font), 'Roboto', sans-serif;
+}
 .keyword-kira {
     font-family: var(--kira-font, Arial);
 }

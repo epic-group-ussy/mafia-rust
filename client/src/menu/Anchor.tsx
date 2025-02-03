@@ -111,6 +111,7 @@ export default function Anchor(props: Readonly<{
         document.documentElement.style.setProperty('--game-font', font);
         document.documentElement.style.setProperty('--kira-font', font === `game-base` ? `game-kira` : font);
         document.documentElement.style.setProperty('--spiral-font', font === `game-base` ? `game-spiral` : font);
+        document.documentElement.style.setProperty('--title-font', font === `game-base` ? `game-title` : font);
         document.documentElement.style.setProperty('--icon-factor', iconFactor);
     }
 

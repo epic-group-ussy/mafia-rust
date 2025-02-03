@@ -21,7 +21,6 @@
 }
 .header-menu {
     position: relative;
-    background-color: var(--background-color);
     background-size:auto;
 }
 .header-menu.background-day{
@@ -33,9 +32,6 @@
     background-position: center;
     background-repeat: repeat;
     background-image: url('../../../public/images/night.png');
-}
-.header-menu.background-none{
-    background-color: var(--background-color);
 }
 .header-menu > .information {
     padding: .25rem;

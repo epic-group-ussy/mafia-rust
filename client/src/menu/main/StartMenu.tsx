@@ -12,12 +12,15 @@ import SettingsMenu from "../Settings";
 import StandaloneWiki from "./StandaloneWiki";
 import { Button } from "../../components/Button";
 import Credits from "./Credits";
+import StyledText from "../../components/StyledText";
 
 export default function StartMenu(): ReactElement {
     const { setContent: setAnchorContent, setCoverCard } = useContext(AnchorControllerContext)!;
     return <div className="sm">
         <main>
-            <h1>{translate("menu.start.title")}</h1>
+            <h1>
+                <StyledText noLinks={true}>{translate("menu.start.title")}</StyledText>
+            </h1>
             <div>
                 <Button onClick={async () => {
                     setAnchorContent(<LoadingScreen type="default"/>);
