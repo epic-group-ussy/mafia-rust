@@ -696,12 +696,13 @@
 
     "messageSender.livingToDead.icon": "🔮",
 
+    "controllerId.nominate.name": "Nominate",
+    "controllerId.forfeitVote.name": "Forfeit Nomination Vote",
     "controllerId.syndicateGunItemShoot.name": "Shoot Gun",
     "controllerId.syndicateGunItemGive.name": "Give Gun",
     "controllerId.syndicateChooseBackup.name": "Choose Backup",
     "controllerId.syndicateBackupAttack.name": "Backup Attack",
     "controllerId.pitchforkVote.name": "Pitchfork Vote",
-    "controllerId.forfeitVote.name": "Forfeit Nomination Vote",
     "controllerId.wardenLiveOrDie.name": "Warden, Live or Die",
     "controllerId.wardenLiveOrDie.boolean.true": "Live",
     "controllerId.wardenLiveOrDie.boolean.false": "Die",

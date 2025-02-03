@@ -13,6 +13,9 @@ pub enum ControllerID{
         role: Role,
         id: RoleControllerID
     },
+    Nominate{
+        player: PlayerReference
+    },
     ForfeitVote{
         player: PlayerReference
     },
