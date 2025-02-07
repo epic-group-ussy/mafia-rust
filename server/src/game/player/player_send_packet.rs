@@ -3,7 +3,6 @@ use std::time::Duration;
 use crate::{
     client_connection::ClientConnection, 
     game::{
-        available_buttons::AvailableButtons,
         chat::ChatMessageVariant, components::insider_group::InsiderGroupID,
         phase::PhaseState, Game, GameOverReason
     },
@@ -54,7 +53,6 @@ impl PlayerReference{
     }
     pub fn send_repeating_data(&self, game: &mut Game){
         self.send_chat_messages(game);
-        self.send_available_buttons(game);
     }
     pub fn send_join_game_data(&self, game: &mut Game){
         // General
@@ -92,7 +90,6 @@ impl PlayerReference{
         // Player specific
         self.requeue_chat_messages(game);
         self.send_chat_messages(game);
-        self.send_available_buttons(game);
         InsiderGroupID::send_player_insider_groups(game, *self);
         InsiderGroupID::send_fellow_insiders(game, *self);
 
@@ -118,9 +115,6 @@ impl PlayerReference{
             ToClientPacket::YourAllowedControllers { 
                 save: game.saved_controllers.controllers_allowed_to_player(*self).all_controllers().clone(),
             },
-            ToClientPacket::YourVoting{ 
-                player_index: PlayerReference::ref_option_to_index(&self.chosen_vote(game))
-            },
             ToClientPacket::YourWill{
                 will: self.will(game).clone()
             },
@@ -129,9 +123,6 @@ impl PlayerReference{
             },
             ToClientPacket::YourCrossedOutOutlines{
                 crossed_out_outlines: self.crossed_out_outlines(game).clone()
-            },
-            ToClientPacket::YourButtons{
-                buttons: AvailableButtons::from_player(game, *self)
             },
             ToClientPacket::Phase { 
                 phase: game.current_phase().clone(),
@@ -169,17 +160,6 @@ impl PlayerReference{
     #[allow(unused)]
     fn requeue_chat_messages(&self, game: &mut Game){
         self.deref_mut(game).queued_chat_messages = self.deref(game).chat_messages.clone();
-    }   
-
-    fn send_available_buttons(&self, game: &mut Game){
-        let new_buttons = AvailableButtons::from_player(game, *self);
-        if new_buttons == self.deref(game).last_sent_buttons{
-            return;
-        }
-        
-        self.send_packet(game, ToClientPacket::YourButtons { buttons: new_buttons.clone() });
-        self.deref_mut(game).last_sent_buttons = new_buttons
     }
-
 }
 

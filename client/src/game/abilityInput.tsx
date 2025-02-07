@@ -47,6 +47,9 @@ export type ControllerID = {
     role: Role,
     id: RoleControllerID,
 } | {
+    type: "nominate",
+    player: PlayerIndex,
+} | {
     type: "forfeitVote",
     player: PlayerIndex,
 } | {

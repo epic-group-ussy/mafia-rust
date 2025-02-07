@@ -14,17 +14,10 @@ import ChatMessage, { translateChatMessage } from "../../../components/ChatMessa
 import GraveComponent, { translateGraveRole } from "../../../components/grave";
 import { ChatMessageSection, ChatTextInput } from "./ChatMenu";
 
-function usePlayerVotedFor(): PlayerIndex | null {
-    return usePlayerState(
-        (playerState, gameState) => gameState.phaseState.type === "nomination" ? playerState.voted ?? null : null,
-        ["phase", "yourVoting"]
-    ) ?? null;
-}
-
 export default function PlayerListMenu(): ReactElement {
     const players = useGameState(
         gameState => gameState.players,
-        ["gamePlayers", "yourButtons", "playerAlive", "yourPlayerTags", "yourRoleLabels", "playerVotes"]
+        ["gamePlayers", "playerAlive", "yourPlayerTags", "yourRoleLabels", "playerVotes"]
     )!
 
     const graves = useGameState(
@@ -179,7 +172,6 @@ function PlayerCard(props: Readonly<{
             phaseState.type === "nomination" && playerAlive && 
             <StyledText>{translate("menu.playerList.player.votes", numVoted)}</StyledText>
         }
-        <VoteButton playerIndex={props.playerIndex} />
         {spectator ||
             <Button 
                 disabled={isPlayerSelf || whispersDisabled}
@@ -235,32 +227,6 @@ function PlayerCard(props: Readonly<{
         />}
     </div>}
     </>
-}
-
-function VoteButton(props: Readonly<{
-    playerIndex: PlayerIndex
-}>): ReactElement | null {
-    const playerVotedFor = usePlayerVotedFor();
-
-    const canVote = usePlayerState(
-        (playerState, gameState) => gameState.players[props.playerIndex].buttons.vote,
-        ["yourButtons"],
-        false
-    )!;
-        
-
-    if (canVote) {
-        return <Button 
-            onClick={()=>GAME_MANAGER.sendVotePacket(props.playerIndex)}
-        >{translate("menu.playerList.button.vote")}</Button>
-    } else if (playerVotedFor === props.playerIndex) {
-        return <Button
-            highlighted={true}
-            onClick={() => GAME_MANAGER.sendVotePacket(null)}
-        >{translate("button.clear")}</Button>
-    } else {
-        return null
-    }
 }
 
 function findLast<T>(array: T[], predicate: (e: T, i: number, array: T[])=>boolean): T | undefined {

@@ -15,6 +15,9 @@ pub enum ControllerID{
         role: Role,
         id: RoleControllerID
     },
+    Nominate{
+        player: PlayerReference
+    },
     ForfeitVote{
         player: PlayerReference
     },
@@ -34,6 +37,9 @@ pub enum ControllerID{
 impl ControllerID{
     pub fn role(player: PlayerReference, role: Role, id: RoleControllerID)->Self{
         Self::Role{player, role, id}
+    }
+    pub fn nominate(player: PlayerReference)->Self{
+        Self::Nominate{player}
     }
     pub fn forfeit_vote(player: PlayerReference)->Self{
         Self::ForfeitVote{player}

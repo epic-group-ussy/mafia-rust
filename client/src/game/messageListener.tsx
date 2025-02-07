@@ -370,14 +370,6 @@ export default function messageListener(packet: ToClientPacket){
                     packet.save.sort((a, b) => sortControllerIdCompare(a[0],b[0]));
             }
         break;
-        case "yourButtons":
-            if(GAME_MANAGER.state.stateType === "game"){
-                for(let i = 0; i < GAME_MANAGER.state.players.length && i < packet.buttons.length; i++){
-                    GAME_MANAGER.state.players[i].buttons = packet.buttons[i];
-                    GAME_MANAGER.state.players = [...GAME_MANAGER.state.players];
-                }
-            }
-        break;
         case "yourRoleLabels":
             if(GAME_MANAGER.state.stateType === "game"){
                 for (const player of GAME_MANAGER.state.players) {
@@ -450,14 +442,6 @@ export default function messageListener(packet: ToClientPacket){
             if(GAME_MANAGER.state.stateType === "game" && GAME_MANAGER.state.clientState.type === "player"){
                 GAME_MANAGER.state.clientState.roleState = packet.roleState;
             }
-        break;
-        case "yourSelection":
-            if(GAME_MANAGER.state.stateType === "game" && GAME_MANAGER.state.clientState.type === "player")
-                GAME_MANAGER.state.clientState.targets = packet.playerIndices;
-        break;
-        case "yourVoting":
-            if(GAME_MANAGER.state.stateType === "game" && GAME_MANAGER.state.clientState.type === "player")
-                GAME_MANAGER.state.clientState.voted = packet.playerIndex;
         break;
         case "yourJudgement":
             if(GAME_MANAGER.state.stateType === "game" && GAME_MANAGER.state.clientState.type === "player")

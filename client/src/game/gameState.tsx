@@ -83,8 +83,6 @@ export function createPlayerGameState(): PlayerGameState {
         crossedOutOutlines: [],
         chatFilter: null,
         deathNote: "",
-        targets: [],
-        voted: null,
         judgement: "abstain",
 
         fellowInsiders: [],
@@ -100,9 +98,6 @@ export function createPlayer(name: string, index: number): Player {
     return{
         name: name,
         index: index,
-        buttons: {
-            vote: false,
-        },
         numVoted: 0,
         alive: true,
         roleLabel: null,

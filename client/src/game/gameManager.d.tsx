@@ -77,7 +77,6 @@ export type GameManager = {
     sendSimplifyRoleListPacket(): void;
     
     sendJudgementPacket(judgement: Verdict): void;
-    sendVotePacket(voteeIndex: PlayerIndex| null): void;
     sendSaveWillPacket(will: string): void;
     sendSaveNotesPacket(notes: string[]): void;
     sendSaveCrossedOutOutlinesPacket(crossedOutOutlines: number[]): void;

@@ -24,7 +24,6 @@ use vec1::Vec1;
 use crate::{
     game::{
         ability_input::*,
-        available_buttons::AvailableButtons,
         chat::{ChatGroup, ChatMessage},
         components::insider_group::InsiderGroupID,
         grave::Grave, modifiers::ModifierType, phase::{PhaseState, PhaseType},
@@ -122,7 +121,6 @@ pub enum ToClientPacket{
         save: VecMap<ControllerID, SavedController>
     },
 
-    YourButtons{buttons: Vec<AvailableButtons>},
     #[serde(rename_all = "camelCase")]
     YourRoleLabels{role_labels: VecMap<PlayerIndex, Role>},
     #[serde(rename_all = "camelCase")]
@@ -135,10 +133,6 @@ pub enum ToClientPacket{
     YourDeathNote{death_note: Option<String>},
     #[serde(rename_all = "camelCase")]
     YourRoleState{role_state: ClientRoleStateEnum},
-    #[serde(rename_all = "camelCase")]
-    YourSelection{player_indices: Vec<PlayerIndex>},
-    #[serde(rename_all = "camelCase")]
-    YourVoting{player_index: Option<PlayerIndex>},
     #[serde(rename_all = "camelCase")]
     YourJudgement{verdict: Verdict},
     #[serde(rename_all = "camelCase")]
@@ -167,6 +161,7 @@ impl ToClientPacket {
         for player_ref in PlayerReference::all_players(game){
             if player_ref.alive(game){
                 if let Some(player_voted) = player_ref.chosen_vote(game){
+
                     if let Some(num_votes) = voted_for_player.get_mut(&player_voted.index()){
                         *num_votes+=1;
                     }else{
@@ -233,7 +228,6 @@ pub enum ToServerPacket{
 
     // Game
     #[serde(rename_all = "camelCase")]
-    Vote{player_index: Option<PlayerIndex>},
     Judgement{verdict: Verdict},
 
     SendChatMessage{text: String, block: bool},

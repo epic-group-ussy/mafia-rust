@@ -12,7 +12,6 @@ impl Lobby {
 
         //RATE LIMITER
         match incoming_packet {
-            ToServerPacket::Vote { .. } |
             ToServerPacket::Judgement { .. } |
             ToServerPacket::SendChatMessage { .. } |
             ToServerPacket::SendLobbyMessage { .. } |

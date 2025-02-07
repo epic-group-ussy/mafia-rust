@@ -2,7 +2,7 @@ use std::collections::HashSet;
 use rand::seq::SliceRandom;
 
 use crate::{game::{
-    ability_input::{AbilitySelection, ControllerParametersMap, SavedControllersMap},
+    ability_input::{AbilitySelection, ControllerID, ControllerParametersMap, PlayerListSelection, SavedControllersMap},
     attack_power::{AttackPower, DefensePower},
     chat::{ChatGroup, ChatMessage, ChatMessageVariant},
     components::{
@@ -317,6 +317,14 @@ impl PlayerReference{
             messages.iter().map(|msg|ChatMessage::new_private(msg.clone())).collect()
         });
         self.add_private_chat_messages(game, messages);
+    }
+
+    pub fn chosen_vote(&self, game: &Game) -> Option<PlayerReference> {
+        if let Some(PlayerListSelection(players)) =game.saved_controllers.get_controller_current_selection_player_list(ControllerID::nominate(*self)) {
+            Some(players.first().cloned()).flatten()
+        }else{
+            None
+        }
     }
 
     pub fn role_label_map(&self, game: &Game) -> VecMap<PlayerReference, Role> {

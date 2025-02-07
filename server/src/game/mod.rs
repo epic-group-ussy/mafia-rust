@@ -9,7 +9,6 @@ pub mod role_list;
 pub mod settings;
 pub mod game_conclusion;
 pub mod components;
-pub mod available_buttons;
 pub mod on_client_message;
 pub mod tag;
 pub mod event;
@@ -23,6 +22,7 @@ pub mod ability_input;
 
 use std::time::Duration;
 use ability_input::saved_controllers_map::SavedControllersMap;
+use ability_input::PlayerListSelection;
 use components::confused::Confused;
 use components::drunk_aura::DrunkAura;
 use components::love_linked::LoveLinked;
@@ -377,7 +377,13 @@ impl Game {
         for player in PlayerReference::all_players(self){
             if !player.alive(self) { continue }
 
-            let Some(voted_player) = player.chosen_vote(self) else { continue };
+            let Some(PlayerListSelection(voted_players)) = self
+                .saved_controllers
+                .get_controller_current_selection_player_list(ability_input::ControllerID::Nominate { player }) else {
+                    continue;
+                };
+            let Some(&voted_player) = voted_players.first() else { continue };
+            
 
             let mut voting_power = 1;
             if let RoleState::Mayor(mayor) = player.role_state(self).clone() {

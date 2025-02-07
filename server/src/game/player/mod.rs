@@ -18,7 +18,7 @@ use crate::{
         chat::ChatMessageVariant, 
         visit::Visit, 
         grave::GraveKiller, 
-        verdict::Verdict, available_buttons::AvailableButtons
+        verdict::Verdict,
     },
     websocket_connections::connection::ClientSender,
 };
@@ -52,9 +52,6 @@ pub struct Player {
     queued_chat_messages: Vec<ChatMessage>, // Not yet sent to the client
 
     win_condition: WinCondition,
- 
-    last_sent_buttons: Vec<AvailableButtons>,
-
 
     fast_forward_vote: bool,
     forfeit_vote: bool,
@@ -63,7 +60,6 @@ pub struct Player {
     night_variables: PlayerNightVariables,
 }
 struct PlayerVotingVariables{
-    chosen_vote:    Option<PlayerReference>,
     verdict:        Verdict,
 }
 struct PlayerNightVariables{
@@ -107,13 +103,10 @@ impl Player {
             chat_messages: Vec::new(),
             queued_chat_messages: Vec::new(),
             
-            last_sent_buttons: Vec::new(),
-
             fast_forward_vote: false,
             forfeit_vote: false,
 
             voting_variables: PlayerVotingVariables{
-                chosen_vote : None,
                 verdict : Verdict::Abstain,
             },
             night_variables: PlayerNightVariables{
@@ -166,14 +159,11 @@ pub mod test {
 
             chat_messages: Vec::new(),
             queued_chat_messages: Vec::new(),
-            
-            last_sent_buttons: Vec::new(),
 
             fast_forward_vote: false,
             forfeit_vote: false,
 
             voting_variables: PlayerVotingVariables{
-                chosen_vote : None,
                 verdict : Verdict::Abstain,
             },
             night_variables: PlayerNightVariables{

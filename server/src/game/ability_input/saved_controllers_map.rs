@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 use crate::{
     game::{
         chat::ChatMessageVariant, components::{
-            forfeit_vote::ForfeitVote, insider_group::InsiderGroupID, mafia::Mafia, pitchfork::Pitchfork, syndicate_gun_item::SyndicateGunItem
+            forfeit_vote::ForfeitVote, insider_group::InsiderGroupID, mafia::Mafia, nomination_controller::NominationController, pitchfork::Pitchfork, syndicate_gun_item::SyndicateGunItem
         }, 
         event::{
             on_controller_selection_changed::OnControllerSelectionChanged,
@@ -45,11 +45,11 @@ impl SavedControllersMap{
             return false;
         }
 
-        OnValidatedAbilityInputReceived::new(actor, ability_input).invoke(game);
-
         Self::send_selection_message(game, actor, id, incoming_selection);
         
         Self::send_saved_controllers_to_clients(game);
+
+        OnValidatedAbilityInputReceived::new(actor, ability_input).invoke(game);
 
         true
     }
@@ -75,6 +75,9 @@ impl SavedControllersMap{
             new_controller_parameters_map.combine_overwrite(player.controller_parameters_map(game));
         }
 
+        new_controller_parameters_map.combine_overwrite(
+            NominationController::controller_parameters_map(game)
+        );
         new_controller_parameters_map.combine_overwrite(
             SyndicateGunItem::controller_parameters_map(game)
         );
@@ -267,7 +270,7 @@ impl SavedControllersMap{
             )
     }
 
-    pub fn get_controller_current_selection_player_list(&self,id: ControllerID)->Option<PlayerListSelection>{
+    pub fn get_controller_current_selection_player_list(&self, id: ControllerID)->Option<PlayerListSelection>{
         self
             .get_controller_current_selection(id)
             .and_then(|selection| 

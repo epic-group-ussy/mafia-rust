@@ -1,10 +1,15 @@
 use crate::{log, packet::ToServerPacket, strings::TidyableString};
 
 use super::{
-    chat::{ChatGroup, ChatMessageVariant, MessageSender}, event::on_fast_forward::OnFastForward, modifiers::{ModifierType, Modifiers}, phase::{PhaseState, PhaseType}, player::{PlayerIndex, PlayerReference}, role::{
+    chat::{ChatGroup, ChatMessageVariant, MessageSender},
+    event::on_fast_forward::OnFastForward, modifiers::{ModifierType, Modifiers},
+    phase::PhaseType,
+    player::{PlayerIndex, PlayerReference},
+    role::{
         mayor::Mayor, politician::Politician,
         Role, RoleState
-    }, spectator::spectator_pointer::{SpectatorIndex, SpectatorPointer}, Game
+    },
+    spectator::spectator_pointer::{SpectatorIndex, SpectatorPointer}, Game
 };
 
 
@@ -36,20 +41,6 @@ impl Game {
         };
 
         'packet_match: {match incoming_packet {
-            ToServerPacket::Vote { player_index: player_voted_index } => {
-                let &PhaseState::Nomination { .. } = self.current_phase() else {break 'packet_match};
-
-                let player_voted_ref = match PlayerReference::index_option_to_ref(self, &player_voted_index){
-                    Ok(player_voted_ref) => player_voted_ref,
-                    Err(_) => break 'packet_match,
-                };
-
-                sender_player_ref.set_chosen_vote(self, player_voted_ref, true);
-
-                self.count_nomination_and_start_trial(
-                    !Modifiers::modifier_is_enabled(self, ModifierType::ScheduledNominations)
-                );
-            },
             ToServerPacket::Judgement { verdict } => {
                 if self.current_phase().phase() != PhaseType::Judgement {break 'packet_match;}
                 

@@ -1,4 +1,4 @@
-use mafia_server::{game::{ability_input::*, chat::ChatMessageVariant, modifiers::{ModifierType, Modifiers}, phase::PhaseState, player::{PlayerIndex, PlayerReference}, role::{Role, RoleState}, tag::Tag, verdict::Verdict, Game}, packet::ToServerPacket, vec_map::VecMap};
+use mafia_server::{game::{ability_input::*, chat::ChatMessageVariant, phase::PhaseState, player::{PlayerIndex, PlayerReference}, role::{Role, RoleState}, tag::Tag, verdict::Verdict, Game}, packet::ToServerPacket, vec_map::VecMap};
 use vec1::Vec1;
 
 #[derive(Clone, Copy, Debug)]
@@ -90,17 +90,11 @@ impl TestPlayer {
     }
 
     pub fn vote_for_player(&self, target: impl Into<Option<TestPlayer>>) {
-        let &PhaseState::Nomination { .. } = game!(self).current_phase() else {return};
-
-        let player_voted_ref = match PlayerReference::index_option_to_ref(game!(self), &target.into().map(|f|f.0.index())){
-            Ok(player_voted_ref) => player_voted_ref,
-            Err(_) => return,
-        };
-
-        self.0.set_chosen_vote(game!(self), player_voted_ref, true);
-
-        game!(self).count_nomination_and_start_trial(
-            !Modifiers::modifier_is_enabled(game!(self), ModifierType::ScheduledNominations)
+        self.send_ability_input(
+            AbilityInput::new(
+                ControllerID::nominate(self.player_ref()),
+                AbilitySelection::new_player_list(target.into().iter().map(|p| p.player_ref()).collect())
+            )
         );
     }
     pub fn set_verdict(&self, verdict: Verdict) {

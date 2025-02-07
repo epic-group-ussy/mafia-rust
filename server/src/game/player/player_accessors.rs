@@ -2,9 +2,16 @@ use vec1::Vec1;
 
 use crate::{
     game::{
-        attack_power::DefensePower, chat::{
-            ChatGroup, ChatMessage, ChatMessageVariant
-        }, event::{on_convert::OnConvert, on_fast_forward::OnFastForward, on_remove_role_label::OnRemoveRoleLabel}, grave::GraveKiller, modifiers::{ModifierType, Modifiers}, role::{Role, RoleState}, tag::Tag, verdict::Verdict, visit::Visit, win_condition::WinCondition, Game
+        attack_power::DefensePower,
+        chat::{
+            ChatMessage, ChatMessageVariant
+        },
+        event::{
+            on_convert::OnConvert, on_fast_forward::OnFastForward,
+            on_remove_role_label::OnRemoveRoleLabel
+        },
+        grave::GraveKiller, modifiers::{ModifierType, Modifiers}, role::{Role, RoleState},
+        tag::Tag, verdict::Verdict, visit::Visit, win_condition::WinCondition, Game
     }, 
     packet::ToClientPacket, vec_map::VecMap, vec_set::VecSet, 
 };
@@ -212,48 +219,6 @@ impl PlayerReference{
     /* 
     Voting
     */
-
-    pub fn chosen_vote(&self, game: &Game) -> Option<PlayerReference>{
-        self.deref(game).voting_variables.chosen_vote
-    }
-    /// Returns true if this player's vote was changed and packet was sent
-    pub fn set_chosen_vote(&self, game: &mut Game, chosen_vote: Option<PlayerReference>, send_chat_message: bool) -> bool{
-
-        if chosen_vote == self.deref(game).voting_variables.chosen_vote ||
-            !self.deref(game).alive || self.forfeit_vote(game) {
-            self.deref_mut(game).voting_variables.chosen_vote = None;
-            self.send_packet(game, ToClientPacket::YourVoting { 
-                player_index: None
-            });
-            return false;
-        }
-        
-        if let Some(chosen_vote) = chosen_vote {
-            if chosen_vote == *self || !chosen_vote.deref(game).alive {
-                self.deref_mut(game).voting_variables.chosen_vote = None;
-                self.send_packet(game, ToClientPacket::YourVoting { 
-                    player_index: None
-                });
-                return false;
-            }
-        }
-        
-        self.deref_mut(game).voting_variables.chosen_vote = chosen_vote;
-        self.send_packet(game, ToClientPacket::YourVoting { 
-            player_index: self.chosen_vote(game).as_ref().map(PlayerReference::index)
-        });
-        let player_votes_packet = ToClientPacket::new_player_votes(game);
-        game.send_packet_to_all(player_votes_packet);
-        
-        if send_chat_message {
-            game.add_message_to_chat_group(ChatGroup::All, ChatMessageVariant::Voted{
-                voter: self.index(), 
-                votee: chosen_vote.as_ref().map(PlayerReference::index)
-            });
-        }
-        
-        true
-    }
 
     
     pub fn verdict(&self, game: &Game) -> Verdict{

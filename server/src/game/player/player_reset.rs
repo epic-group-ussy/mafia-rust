@@ -42,8 +42,7 @@ impl PlayerReference{
                         }
                     }
                 }
-
-                self.set_chosen_vote(game, None, false);
+                
                 self.set_verdict(game, Verdict::Abstain);
             },
             PhaseType::Testimony => {},
