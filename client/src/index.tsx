@@ -28,6 +28,20 @@ setInterval(() => {
     GAME_MANAGER.tick(TIME_PERIOD);
 }, TIME_PERIOD);
 
+new MutationObserver(mutations => {
+    for (const mutation of mutations) {
+        if (mutation.type === "childList") {
+            const elem = mutation.target as Element;
+
+            for (const glitch of elem.querySelectorAll('.glitch')) {
+                if (!glitch.hasAttribute('data-text')) {
+                    glitch.setAttribute('data-text', glitch.textContent ?? "")
+                }
+            }
+        }
+    }
+}).observe(document.body, { subtree: true, childList: true });
+
 ROOT.render(
     <Anchor onMount={anchorController => route(anchorController, window.location)}>
         <LoadingScreen type="default"/>

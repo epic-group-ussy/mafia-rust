@@ -12,58 +12,53 @@ import SettingsMenu from "../Settings";
 import StandaloneWiki from "./StandaloneWiki";
 import { Button } from "../../components/Button";
 import Credits from "./Credits";
+import StyledText from "../../components/StyledText";
 
 export default function StartMenu(): ReactElement {
     const { setContent: setAnchorContent, setCoverCard } = useContext(AnchorControllerContext)!;
     return <div className="sm">
+        <header>
+            <h1>
+                <StyledText noLinks={true}>{translate("menu.start.title")}</StyledText>
+            </h1>
+        </header>
         <main>
-            <h1>{translate("menu.start.title")}</h1>
-            <div>
-                <Button onClick={async () => {
-                    setAnchorContent(<LoadingScreen type="default"/>);
-                    if (await GAME_MANAGER.setOutsideLobbyState()) {
-                        setAnchorContent(<PlayMenu/>);
-                    } else {
-                        setAnchorContent(<StartMenu/>);
-                    }
-                }}>
-                    <Icon>play_arrow</Icon> {translate("menu.start.button.play")}
-                </Button>
-                <Button onClick={() => setCoverCard(<SettingsMenu />)}>
-                    <Icon>settings</Icon> {translate("menu.settings.title")}
-                </Button>
-                <Button onClick={() => setCoverCard(<GameModesEditor/>)}>
-                    <Icon>edit</Icon> {translate("menu.globalMenu.gameSettingsEditor")}
-                </Button>
-                <Button onClick={() => setAnchorContent(<StandaloneWiki/>)}>
-                    <Icon>menu_book</Icon> {translate("menu.wiki.title")}
-                </Button>
-                <Button onClick={()=>{
-                    window.open("https://discord.gg/Vxw7gFPfJj", "_blank")
-                }}>
-                    <Icon>public</Icon> Discord
-                </Button>
+            <div className="satellite">
+                <div className="left">
+                    <Button onClick={async () => {
+                        setAnchorContent(<LoadingScreen type="default"/>);
+                        if (await GAME_MANAGER.setOutsideLobbyState()) {
+                            setAnchorContent(<PlayMenu/>);
+                        } else {
+                            setAnchorContent(<StartMenu/>);
+                        }
+                    }}>
+                        <Icon>play_arrow</Icon> {translate("menu.start.button.play")}
+                    </Button>
+                    <Button onClick={() => setCoverCard(<SettingsMenu />)}>
+                        <Icon>settings</Icon> {translate("menu.settings.title")}
+                    </Button>
+                </div>
+                <div className="center"/>
+                <div className="right">
+                    <Button onClick={() => setCoverCard(<GameModesEditor/>)}>
+                        <Icon>edit</Icon> {translate("menu.globalMenu.gameSettingsEditor")}
+                    </Button>
+                    <Button onClick={() => setAnchorContent(<StandaloneWiki/>)}>
+                        <Icon>menu_book</Icon> {translate("menu.wiki.title")}
+                    </Button>
+                </div>
             </div>
         </main>
         <footer>
-            <nav>
-                <ul>
-                    <li>
-                        <a href="https://www.github.com/ItsSammyM/mafia-rust">Github</a>
-                    </li>
-                    <li>
-                        <Button onClick={()=>{
-                            window.open("https://discord.gg/Vxw7gFPfJj", "_blank")
-                        }}>
-                            <Icon>public</Icon> Discord
-                        </Button>
-                    </li>
-                    <li>
-                        <Button onClick={()=>{setAnchorContent(<Credits/>)}}>{translate("credits")}</Button>
-                    </li>
-                    <li><a href="https://mafia.dev.jackpapel.com">Dev (Experimental)</a></li>
-                </ul>
-            </nav>
+            <a className="button" href="https://www.github.com/ItsSammyM/mafia-rust">Github</a>
+            <Button onClick={()=>{
+                window.open("https://discord.gg/Vxw7gFPfJj", "_blank")
+            }}>
+                <Icon>public</Icon> Discord
+            </Button>
+            <Button onClick={()=>{setAnchorContent(<Credits/>)}}>{translate("credits")}</Button>
+            <a className="button" href="https://mafia.dev.jackpapel.com">Dev (Experimental)</a>
         </footer>
     </div>
 }

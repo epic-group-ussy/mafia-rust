@@ -1,4 +1,5 @@
 {
+    "menu.start.title": { "style": "keyword-title glitch", "link": "standard/howToPlay" },
     "suspiciousAura": { "style": "keyword-evil", "link": "standard/aura"},
     "innocentAura": { "style": "keyword-good", "link": "standard/aura"},
     "verdict.guilty": { "style": "keyword-evil"},

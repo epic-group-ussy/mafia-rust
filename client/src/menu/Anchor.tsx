@@ -105,12 +105,17 @@ export default function Anchor(props: Readonly<{
         document.documentElement.style.fontSize = `${n}em`;
     }
     const setAccessibilityFontEnabled = (enabled: boolean) => {
-        const font = enabled ? 'game-accessible' : 'game-base';
+
+        const getFont = (font: string, enabled: boolean) => enabled === true ? 'game-accessible-font' : font;
+
         const iconFactor = enabled ? '1.2' : '1';
 
-        document.documentElement.style.setProperty('--game-font', font);
-        document.documentElement.style.setProperty('--kira-font', font === `game-base` ? `game-kira` : font);
-        document.documentElement.style.setProperty('--spiral-font', font === `game-base` ? `game-spiral` : font);
+        document.documentElement.style.setProperty('--game-font', getFont('game-base-font', enabled));
+        document.documentElement.style.setProperty('--kira-font', getFont('game-kira-font', enabled));
+        document.documentElement.style.setProperty('--spiral-font', getFont('game-spiral-font', enabled));
+        document.documentElement.style.setProperty('--title-font', getFont('game-title-font', enabled));
+        document.documentElement.style.setProperty('--computer-font', getFont('computer-font', enabled));
+        document.documentElement.style.setProperty('--legible-computer-font', getFont('legible-computer-font', enabled));
         document.documentElement.style.setProperty('--icon-factor', iconFactor);
     }
 
